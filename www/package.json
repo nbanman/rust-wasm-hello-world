@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +15,7 @@
     "wasm-game-of-life": "file:../pkg"
   },
   "devDependencies": {
+    "@types/node": "^24.0.8",
     "vite": "6.1.0",
     "vite-plugin-top-level-await": "1.4.4",
     "vite-plugin-wasm": "3.4.1"

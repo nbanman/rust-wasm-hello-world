@@ -1,26 +1,33 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
-
 import wasm from "vite-plugin-wasm";
-// not needed, but important for supporting older browsers
 import topLevelAwait from "vite-plugin-top-level-await";
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const rootDir = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-    root: '.',
-    build: {
-        outDir: 'dist',
-        rollupOptions: {
-            input: {
-                main: resolve(import.meta.url, 'index.html'),
-                bootstrap: resolve(import.meta.url, 'bootstrap.js')
-            }
-        }
+  root: '.',
+  plugins: [
+    wasm(),
+    topLevelAwait()
+  ],
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        bootstrap: 'bootstrap.js'
+      }
+    }
+  },
+  server: {
+    open: 'index.html',
+    fs: {
+      allow: [
+        '.',
+        resolve(rootDir, '../pkg'),
+      ]
     },
-    server: {
-        open: 'index.html'
-    },
-    plugins: [
-        wasm(),
-        topLevelAwait()
-    ]
-})
+  }
+});
